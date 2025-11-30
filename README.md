@@ -193,6 +193,4 @@ jobs:
 Any contributions are helpful, please make a pull-request. If you would like to discuses a new feature, please create an
 issue first.
 
-----------------------------------------------
-
 [^1]: Support for markdown footnotes!
