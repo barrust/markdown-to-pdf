@@ -9,7 +9,7 @@ Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.
 - Tables
 - Images (see docs)
 - Internal and external links
-- Footnotes ^[1]
+- Footnotes [^1]
 
 ## GitHub Action Inputs
 
@@ -193,5 +193,6 @@ jobs:
 Any contributions are helpful, please make a pull-request. If you would like to discuses a new feature, please create an
 issue first.
 
+----------------------------------------------
 
-^[1]: Support for markdown footnotes!
+[^1]: Support for markdown footnotes!
