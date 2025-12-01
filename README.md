@@ -10,8 +10,8 @@ Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.
 - Images (see docs)
 - Internal and external links
 - Task Lists
-  [x] Completed
-  [] Not completed
+  - [x] Completed
+  - [ ] Not completed
 
 ## GitHub Action Inputs
 
