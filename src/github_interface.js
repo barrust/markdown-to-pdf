@@ -58,12 +58,15 @@ const ImageDir = getRunnerInput('images_dir',
 
 // Optional input, though recommended
 let OutputDir = getRunnerInput('output_dir', 'built', getRunnerPath);
-let OutputDirIsDir = false
+let OutputDirIsDir = false;
 try {
     OutputDirIsDir = fs.lstatSync(OutputDir).isDirectory();
 } catch { }
+// Always ensure OutputDir ends with a slash
+if (!OutputDir.endsWith("/")) {
+    OutputDir += "/";
+}
 if (!OutputDirIsDir) {
-    OutputDir += OutputDir.endsWith("/") ? "" : "/"
     CreateOutputDirectory(OutputDir);
 }
 
