@@ -12,6 +12,7 @@ This is a fork of https://github.com/BaileyJM02/markdown-to-pdf
 - Code highlighting
 - Tables
 - Images (see docs)
+- Emojis :rocket: :100:
 - Internal and external links
 
 ## GitHub Action Inputs

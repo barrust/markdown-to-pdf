@@ -13,6 +13,7 @@ const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItTOC = require('markdown-it-toc-done-right');
 const markdownItEmoji = require('markdown-it-emoji');
+const twemoji = require('twemoji');
 
 function nullCoalescing(value, fallback) {
 	return value !== undefined && value !== null ? value : fallback;
@@ -56,8 +57,12 @@ function GetMarkdownIt() {
 		listType: 'ul',
 		slugify: slugify,
 	});
+
 	md.use(markdownItEmoji.full);
 
+	md.renderer.rules.emoji = function(token, idx) {
+  		return twemoji.parse(token[idx].content);
+	};
 	return md;
 }
 
