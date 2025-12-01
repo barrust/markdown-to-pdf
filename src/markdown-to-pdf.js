@@ -12,8 +12,7 @@ const request = require('request').defaults({encoding: null}); // Encoding is "n
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItTOC = require('markdown-it-toc-done-right');
-const markdownItEmojiImport = require('markdown-it-emoji');
-const markdownItEmoji = markdownItEmojiImport.default || markdownItEmojiImport;
+const markdownItEmoji = require('markdown-it-emoji');
 
 function nullCoalescing(value, fallback) {
 	return value !== undefined && value !== null ? value : fallback;
@@ -57,7 +56,7 @@ function GetMarkdownIt() {
 		listType: 'ul',
 		slugify: slugify,
 	});
-	md.use(markdownItEmoji);
+	md.use(markdownItEmoji.full);
 
 	return md;
 }
