@@ -18,6 +18,7 @@ COPY template/ template/
 COPY styles/ styles/
 
 RUN npm install
+RUN npx puppeteer browsers install chrome
 RUN fc-cache -fv && \
     chmod +x /github_interface.js && \
     mkdir /pdf && \
