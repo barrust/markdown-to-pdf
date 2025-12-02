@@ -3,12 +3,17 @@
 
 Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.
 
+## NOTICE:
+
+This is a fork of https://github.com/BaileyJM02/markdown-to-pdf
+
 ## Notable Features:
 
 - Code highlighting
 - Tables
 - Images (see docs)
 - Internal and external links
+- Emoji :rocket: :100:
 
 ## GitHub Action Inputs
 
@@ -189,5 +194,19 @@ jobs:
 
 ## Contributions
 
-Any contributions are helpful, please make a pull-request. If you would like to discuses a new feature, please create an
-issue first.
+Any contributions are helpful, please make a pull-request. If you would like to discuses a new feature,
+please create an issue first.
+
+### Local Testing
+
+To run or test locally, you will need to install NodeJS 24 and run the following commands in a clean environment
+
+**Install dependencies**
+``` bash
+npm install
+```
+
+**Run local instance**
+``` bash
+LOCAL_RUNNER=1 INPUT_PATH=README.md OUTPUT_DIR=generated node --trace-uncaught src/github_interface.js
+```
