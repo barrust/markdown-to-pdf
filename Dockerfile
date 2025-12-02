@@ -12,13 +12,15 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     rm -rf /var/lib/apt/lists/*
 
 COPY src/*.js /
-COPY package.json /
-COPY package-lock.json /
+COPY package.json .
+COPY package-lock.json .
 COPY template/ template/
 COPY styles/ styles/
 
-RUN npm install
-RUN npx puppeteer browsers install chrome
+RUN npm install --unsafe-perm
+# Debug: list node_modules/.bin before running puppeteer install
+RUN ls -l node_modules/.bin && npx puppeteer browsers install chrome
+
 RUN fc-cache -fv && \
     chmod +x /github_interface.js && \
     mkdir /pdf && \
