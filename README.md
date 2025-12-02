@@ -156,7 +156,7 @@ This should be the direct path to a file, it should not be prefixed with a `/`. 
 
 An example of a workflow for some documentation.
 
-````yml
+``` yaml
 # .github/workflows/convert-to-pdf.yml
 
 name: Docs to PDF
@@ -175,7 +175,7 @@ jobs:
     name: Build PDF
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: baileyjm02/markdown-to-pdf@v1
         with:
           input_dir: docs
@@ -185,17 +185,16 @@ jobs:
           image_import: ./images
           # Default is true, can set to false to only get PDF files
           build_html: false
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v5
         with:
           name: docs
           path: pdfs
-
-````
+```
 
 ## Contributions
 
-Any contributions are helpful, please make a pull-request. If you would like to discuses a new feature,
-please create an issue first.
+Any contributions are helpful and welcome, please make a pull-request.
+If you would like to discuses a new feature, please create an issue first.
 
 ### Local Testing
 

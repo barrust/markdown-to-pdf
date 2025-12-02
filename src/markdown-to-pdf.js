@@ -147,6 +147,7 @@ class MarkdownToPDF {
 
 		// Build the PDF file
 		const browser = await puppeteer.launch({
+			executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
 			args: [
 				'--headless',
 				'--no-sandbox',
