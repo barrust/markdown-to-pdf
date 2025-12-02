@@ -6,14 +6,14 @@ const path = require("path");
 const md2pdf = require('./markdown-to-pdf');
 
 
-const DEFAULT_THEME_FILE = '/styles/markdown.css';
-const DEFAULT_HIGHLIGHT_FILE = '/styles/highlight.css';
-const DEFAULT_TEMPLATE_FILE = '/template/template.html';
-const RUNNER_DIR = '/github/workspace/';
+const DEFAULT_THEME_FILE = process.env.LOCAL_RUNNER ? './styles/markdown.css' : '/styles/markdown.css';
+const DEFAULT_HIGHLIGHT_FILE = process.env.LOCAL_RUNNER ? './styles/highlight.css' : '/styles/highlight.css';
+const DEFAULT_TEMPLATE_FILE = process.env.LOCAL_RUNNER ? './template/template.html' : '/template/template.html';
+const RUNNER_DIR = process.env.LOCAL_RUNNER ? process.cwd() + '/' : '/github/workspace/';
 
 
 function getRunnerInput(name, def, transformer = val => val) {
-    let value = process.env['INPUT_' + name.toUpperCase()];
+    let value = process.env[name.toUpperCase()] || process.env['INPUT_' + name.toUpperCase()];
 
     return (value === undefined || value === '') ? def : transformer(value);
 }
@@ -37,10 +37,11 @@ let InputPath = getRunnerInput(
     getRunnerInput('input_dir', '', getRunnerPath),
     getRunnerPath
 );
-let InputPathIsDir = false
+let InputPathIsDir = false;
 try {
-    InputPathIsDir = fs.lstatSync(InputPath).isDirectory();
-} catch {
+    const stat = fs.lstatSync(InputPath);
+    InputPathIsDir = stat.isDirectory();
+} catch (err) {
     throw `Given input path, ${InputPath}, was not found in filesystem!`;
 }
 
@@ -57,12 +58,17 @@ const ImageDir = getRunnerInput('images_dir',
 
 // Optional input, though recommended
 let OutputDir = getRunnerInput('output_dir', 'built', getRunnerPath);
-let OutputDirIsDir = false
+
+let OutputDirIsDir = false;
 try {
     OutputDirIsDir = fs.lstatSync(OutputDir).isDirectory();
-} catch { }
+} catch (err) {
+    // pass
+}
+if (!OutputDir.endsWith("/")) {
+    OutputDir += "/";
+}
 if (!OutputDirIsDir) {
-    OutputDir += OutputDir.endsWith("/") ? "" : "/"
     CreateOutputDirectory(OutputDir);
 }
 
