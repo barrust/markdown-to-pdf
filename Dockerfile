@@ -16,9 +16,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Let Puppeteer know where Chromium is
-# ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
-COPY src/*.js /
+COPY src/ /
 COPY package.json .
 COPY package-lock.json .
 COPY template/ template/
