@@ -56,7 +56,7 @@ function GetMarkdownIt() {
 		listType: 'ul',
 		slugify: slugify,
 	});
-	md.use(markdownItEmoji);
+	md.use(markdownItEmoji.full);
 
 	return md;
 }
