@@ -112,15 +112,12 @@ const PDFLayout = {
 	margin: {top: 50, bottom: 50, right: 50, left: 50}
 };
 
+
 class MarkdownToPDF {
-
 	constructor(options) {
-		this._image_import = options.image_import;
-		this._image_dir = nullCoalescing(options.image_dir, this._image_import);
-
+		this._image_dir = options.image_dir;
 		this._style = options.style;
 		this._template = options.template;
-
 		this._table_of_contents = options.table_of_contents;
 	}
 
@@ -219,24 +216,13 @@ class MarkdownToPDF {
 		return mustache.render(this._template, view);
 	}
 
-	// ConvertImageRoutes this function changed all instances of the ImageImport path to localhost,
-	// it then fetches this URL and encodes it to base64 so we can include it in both the HTML and
-	// PDF files without having to lug around an images folder
+	// ConvertImageRoutes: embed all images as base64, using only image_dir for local images
 	async _convertImageRoutes(html) {
 		console.log('[DEBUG] Starting image route conversion.');
-		//console.log('[DEBUG] HTML content received:');
-		//console.log(html);
-		if(this._image_import === null) {
-			console.log('[DEBUG] No image import path set, skipping image embedding.');
-			return html;
-		}
-
-		// Use cheerio to robustly parse HTML and embed images
 		const $ = cheerio.load(html, { xmlMode: false, decodeEntities: false });
 		const imgTags = $('img');
 		console.log('[DEBUG] Found', imgTags.length, '<img> tags');
 		console.log('[DEBUG] imgTags contents:', imgTags);
-
 		for (let i = 0; i < imgTags.length; i++) {
 			let img = imgTags[i];
 			console.log(`[DEBUG] imgTags[${i}]:`, img);
@@ -261,7 +247,6 @@ class MarkdownToPDF {
 				console.log('[DEBUG] Skipping image with empty src');
 			}
 		}
-
 		return $.html();
 	}
 

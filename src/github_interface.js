@@ -50,13 +50,11 @@ if (InputPathIsDir) {
 }
 
 // Other GitHub Action inputs that are needed for this program to run
-const ImageImport = getRunnerInput('image_import', null);
+
 const ImageDir = getRunnerInput('images_dir',
-    InputPathIsDir ? InputPath : path.dirname(InputPath) + '/' +
-        md2pdf.nullCoalescing(ImageImport, ''),
+    InputPathIsDir ? InputPath : path.dirname(InputPath),
     getRunnerPath);
 
-console.log(`Using image import path: ${ImageImport}`);
 console.log(`Using image directory path: ${ImageDir}`);
 
 // Optional input, though recommended
@@ -173,12 +171,9 @@ const style = (extend_default_theme ? md2pdf.getFileContent(DEFAULT_THEME_FILE) 
 const template = md2pdf.getFileContent(TemplateFile);
 
 let md = new md2pdf({
-    image_import: ImageImport,
     image_dir: ImageDir,
-
     style: style,
     template: template,
-
     table_of_contents: table_of_contents,
 });
 md.start();

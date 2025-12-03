@@ -54,17 +54,7 @@ with:
 ([Path](#path))
 The location of the folder you want to place the built files.
 
-### Image Import Prefix
 
-```yaml
-with:
-  image_import: value
-```
-
-([String](#string))
-The path you use to import your images that can be replaced with the server URL. For example if you
-had `<img src="./images/something-else/file.">` you would pass `./images` as this is replaced
-by `https://localhost:3000` during the build process.
 
 ### Build HTML
 
@@ -185,7 +175,6 @@ jobs:
           output_dir: pdfs
           images_dir: docs/images
           # for example <img src="./images/file-name.png">
-          image_import: ./images
           # Default is true, can set to false to only get PDF files
           build_html: false
       - uses: actions/upload-artifact@v5
@@ -210,5 +199,5 @@ npm install
 
 **Run local instance**
 ``` bash
-LOCAL_RUNNER=1 INPUT_PATH=README.md OUTPUT_DIR=generated IMAGES_DIR=images IMAGE_IMPORT=./images node --trace-uncaught src/github_interface.js
+LOCAL_RUNNER=1 INPUT_PATH=README.md OUTPUT_DIR=generated IMAGES_DIR=images node --trace-uncaught src/github_interface.js
 ```
