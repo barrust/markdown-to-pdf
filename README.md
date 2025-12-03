@@ -1,4 +1,7 @@
 # Markdown to PDF
+
+![markdown icon](images/color-splash-icon_500x333.png "A nice markdown icon")
+
 [![CI](https://github.com/BaileyJM02/markdown-to-pdf/actions/workflows/main.yml/badge.svg)](https://github.com/BaileyJM02/markdown-to-pdf/actions/workflows/main.yml)
 
 Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.
@@ -12,9 +15,6 @@ This is a fork of https://github.com/BaileyJM02/markdown-to-pdf
 - Code highlighting
 - Tables
 - Images (see docs)
-
-  ![markdown icon](images/markdown-icon_50x31.png "A nice markdown icon")
-
 - Internal and external links
 - Emoji :rocket: :100:
 
@@ -174,7 +174,6 @@ jobs:
           input_dir: docs
           output_dir: pdfs
           images_dir: docs/images
-          # for example <img src="./images/file-name.png">
           # Default is true, can set to false to only get PDF files
           build_html: false
       - uses: actions/upload-artifact@v5
