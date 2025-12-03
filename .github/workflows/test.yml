@@ -20,7 +20,6 @@ jobs:
           output_dir: generated
           build_html: true
           images_dir: images
-          image_import: ./images
       - uses: actions/upload-artifact@v5
         with:
           name: readme
