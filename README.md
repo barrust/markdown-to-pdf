@@ -12,6 +12,9 @@ This is a fork of https://github.com/BaileyJM02/markdown-to-pdf
 - Code highlighting
 - Tables
 - Images (see docs)
+
+  ![markdown icon](images/markdown-icon_50x31.png "A nice markdown icon")
+
 - Internal and external links
 - Emoji :rocket: :100:
 
@@ -207,5 +210,5 @@ npm install
 
 **Run local instance**
 ``` bash
-LOCAL_RUNNER=1 INPUT_PATH=README.md OUTPUT_DIR=generated node --trace-uncaught src/github_interface.js
+LOCAL_RUNNER=1 INPUT_PATH=README.md OUTPUT_DIR=generated IMAGES_DIR=images IMAGE_IMPORT=./images node --trace-uncaught src/github_interface.js
 ```

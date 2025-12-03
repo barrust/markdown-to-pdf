@@ -56,6 +56,9 @@ const ImageDir = getRunnerInput('images_dir',
         md2pdf.nullCoalescing(ImageImport, ''),
     getRunnerPath);
 
+console.log(`Using image import path: ${ImageImport}`);
+console.log(`Using image directory path: ${ImageDir}`);
+
 // Optional input, though recommended
 let OutputDir = getRunnerInput('output_dir', 'built', getRunnerPath);
 
