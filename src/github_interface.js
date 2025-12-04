@@ -59,15 +59,15 @@ console.log(`Using image directory path: ${ImageDir}`);
 
 // Optional input, though recommended
 let OutputDir = getRunnerInput('output_dir', 'built', getRunnerPath);
+if (!OutputDir.endsWith("/")) {
+    OutputDir += "/";
+}
 
 let OutputDirIsDir = false;
 try {
     OutputDirIsDir = fs.lstatSync(OutputDir).isDirectory();
 } catch (err) {
     // pass
-}
-if (!OutputDir.endsWith("/")) {
-    OutputDir += "/";
 }
 if (!OutputDirIsDir) {
     CreateOutputDirectory(OutputDir);
