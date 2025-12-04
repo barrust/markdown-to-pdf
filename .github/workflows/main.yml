@@ -4,7 +4,7 @@ on:
     tags:
       - v*
 
-name: CI
+name: Build and Deploy
 
 jobs:
   build-docker-container:

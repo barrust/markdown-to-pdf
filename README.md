@@ -2,7 +2,8 @@
 
 ![markdown icon](images/color-splash-icon_500x333.png "A nice markdown icon")
 
-[![CI](https://github.com/BaileyJM02/markdown-to-pdf/actions/workflows/main.yml/badge.svg)](https://github.com/BaileyJM02/markdown-to-pdf/actions/workflows/main.yml)
+[![Validation](https://github.com/barrust/markdown-to-pdf/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/barrust/markdown-to-pdf/actions/workflows/test.yml)
+[![Build](https://github.com/barrust/markdown-to-pdf/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/barrust/markdown-to-pdf/actions/workflows/main.yml)
 
 Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.
 
