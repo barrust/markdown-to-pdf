@@ -19,7 +19,7 @@
 		"markdown-it-emoji": "^3.0.0",
 		"markdown-it-toc-done-right": "^4.2.0",
 		"mustache": "4.2.0",
-		"puppeteer": "24.32.1",
+		"puppeteer": "24.33.0",
 		"request": "^2.88.2"
 	}
 }
