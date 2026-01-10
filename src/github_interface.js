@@ -9,7 +9,9 @@ const md2pdf = require('./markdown-to-pdf');
 const DEFAULT_THEME_FILE = process.env.LOCAL_RUNNER ? './styles/markdown.css' : '/styles/markdown.css';
 const DEFAULT_HIGHLIGHT_FILE = process.env.LOCAL_RUNNER ? './styles/highlight.css' : '/styles/highlight.css';
 const DEFAULT_TEMPLATE_FILE = process.env.LOCAL_RUNNER ? './template/template.html' : '/template/template.html';
-const RUNNER_DIR = process.env.LOCAL_RUNNER ? process.cwd() + '/' : '/github/workspace/';
+const RUNNER_DIR = process.env.LOCAL_RUNNER
+    ? process.cwd() + '/'
+    : process.env.GITHUB_WORKSPACE || '/github/workspace/';
 
 
 function getRunnerInput(name, def, transformer = val => val) {
