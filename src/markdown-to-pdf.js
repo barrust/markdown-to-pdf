@@ -224,11 +224,32 @@ class MarkdownToPDF {
 			let img = imgTags[i];
 			let src = $(img).attr('src');
 			if (src) {
-				// If src is external, use as is; if local, normalize path
-				let path = src.match(/^https?:\/\//) ? src : 'http://localhost:3000/' + src.replace(/^\.\//, '').replace(/^images\//, '');
-				console.log(`[DEBUG] Embedding image: ${src} -> ${path}`);
+				if (src.match(/^https?:\/\//)) {
+					// External image, use as is
+					console.log(`[DEBUG] Embedding image: ${src} -> ${src}`);
+					try {
+						let image = await encodeImage(src);
+						if (image) {
+							$(img).attr('src', image);
+							console.log('[DEBUG] Successfully embedded image as base64.');
+						} else {
+							console.log('[DEBUG] Image encoding returned null for', src);
+						}
+					} catch (error) {
+						console.log('[DEBUG] ERROR embedding image:', error);
+					}
+					continue;
+				}
+				// Local image: strip image_dir prefix if present
+				let imageDirName = this._image_dir.replace(/\\/g, '/').replace(/.*\//, '');
+				let localSrc = src.replace(/^\.\//, '');
+				if (localSrc.startsWith(imageDirName + '/')) {
+					localSrc = localSrc.slice(imageDirName.length + 1);
+				}
+				let url = 'http://localhost:3000/' + localSrc;
+				console.log(`[DEBUG] Embedding image: ${src} -> ${url}`);
 				try {
-					let image = await encodeImage(path);
+					let image = await encodeImage(url);
 					if (image) {
 						$(img).attr('src', image);
 						console.log('[DEBUG] Successfully embedded image as base64.');
