@@ -1,4 +1,6 @@
 # Markdown to PDF
+![markdown icon](images/color-splash-icon_500x333.png "A nice markdown icon")
+
 [![CI](https://github.com/barrust/markdown-to-pdf/actions/workflows/main.yml/badge.svg)](https://github.com/barrust/markdown-to-pdf/actions/workflows/main.yml)
 
 Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.
@@ -195,5 +197,5 @@ npm install
 
 **Run local instance**
 ``` bash
-LOCAL_RUNNER=1 INPUT_PATH=README.md OUTPUT_DIR=generated node --trace-uncaught src/github_interface.js
+LOCAL_RUNNER=1 INPUT_PATH=README.md IMAGES_DIR=images OUTPUT_DIR=generated node --trace-uncaught src/github_interface.js
 ```

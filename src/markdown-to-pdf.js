@@ -126,8 +126,7 @@ class MarkdownToPDF {
 		this._image_server_app.use(express.static(this._image_dir));
 		this._image_server = this._image_server_app.listen(3000);
 
-		console.log("Started image server with image folder route '" + this._image_dir + "'.");
-		console.log();
+		console.log("Started image server with image folder route '" + this._image_dir + "'.\n");
 	}
 
 	async convert(data, title) {
@@ -188,8 +187,7 @@ class MarkdownToPDF {
 	close() {
 		// Shutdown the image server
 		this._image_server.close(function() {
-			console.log();
-			console.log('Gracefully shut down image server.');
+			console.log('\nGracefully shut down image server.');
 		});
 	}
 
@@ -222,12 +220,9 @@ class MarkdownToPDF {
 		const $ = cheerio.load(html, { xmlMode: false, decodeEntities: false });
 		const imgTags = $('img');
 		console.log('[DEBUG] Found', imgTags.length, '<img> tags');
-		console.log('[DEBUG] imgTags contents:', imgTags);
 		for (let i = 0; i < imgTags.length; i++) {
 			let img = imgTags[i];
-			console.log(`[DEBUG] imgTags[${i}]:`, img);
 			let src = $(img).attr('src');
-			console.log(`[DEBUG] src for imgTags[${i}]:`, src);
 			if (src) {
 				// If src is external, use as is; if local, normalize path
 				let path = src.match(/^https?:\/\//) ? src : 'http://localhost:3000/' + src.replace(/^\.\//, '').replace(/^images\//, '');

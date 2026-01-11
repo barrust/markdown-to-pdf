@@ -207,7 +207,7 @@ if (InputPathIsDir) {
         const files = GetMarkdownFiles([path.basename(InputPath)]);
         if (files.length === 0) throw 'No markdown file found! Exiting.';
 
-        console.log('Markdown file found: ' + files, files[0]);
+        console.log('Markdown file found:', files[0]);
 
         // Convert the file
         await ConvertMarkdown(files[0]).catch(function (err) {
