@@ -1,5 +1,5 @@
 # action.yml
-name: 'Markdown to PDF and HTML'
+name: 'Convert Markdown to PDF and HTML'
 description: 'Creates PDF and HTML files from Markdown using the GitHub (or custom) theme.'
 runs:
   using: 'docker'
@@ -41,5 +41,5 @@ inputs:
     required: false
 
 branding:
-  icon: 'book'
-  color: 'green'
+  icon: 'book-open'
+  color: 'orange'
