@@ -112,15 +112,12 @@ const PDFLayout = {
 	margin: {top: 50, bottom: 50, right: 50, left: 50}
 };
 
+
 class MarkdownToPDF {
-
 	constructor(options) {
-		this._image_import = options.image_import;
-		this._image_dir = nullCoalescing(options.image_dir, this._image_import);
-
+		this._image_dir = options.image_dir;
 		this._style = options.style;
 		this._template = options.template;
-
 		this._table_of_contents = options.table_of_contents;
 	}
 
@@ -129,8 +126,7 @@ class MarkdownToPDF {
 		this._image_server_app.use(express.static(this._image_dir));
 		this._image_server = this._image_server_app.listen(3000);
 
-		console.log("Started image server with image folder route '" + this._image_dir + "'.");
-		console.log();
+		console.log("Started image server with image folder route '" + this._image_dir + "'.\n");
 	}
 
 	async convert(data, title) {
@@ -191,8 +187,7 @@ class MarkdownToPDF {
 	close() {
 		// Shutdown the image server
 		this._image_server.close(function() {
-			console.log();
-			console.log('Gracefully shut down image server.');
+			console.log('\nGracefully shut down image server.');
 		});
 	}
 
@@ -219,40 +214,57 @@ class MarkdownToPDF {
 		return mustache.render(this._template, view);
 	}
 
-	// ConvertImageRoutes this function changed all instances of the ImageImport path to localhost,
-	// it then fetches this URL and encodes it to base64 so we can include it in both the HTML and
-	// PDF files without having to lug around an images folder
+	// ConvertImageRoutes: embed all images as base64, using only image_dir for local images
 	async _convertImageRoutes(html) {
-		if(this._image_import === null) {
-			return html;
-		}
-
-		let imagePath = this._image_import.replace(/[-\[\]{}()*+?.,\\^$|#]/g, '\\$&');
-		let imagePathRegex = new RegExp(imagePath, 'g');
-		let imgTagRegex = /<img[^>]+src="([^">]+)"/g;
-		let encoded = html;
-
-		let m;
-		while(m = imgTagRegex.exec(html)) {
-			try {
-				let path = m[1].replace(imagePathRegex, 'http://localhost:3000');
-				let image = await encodeImage(path).then(function (image) {
-					return image;
-				}).catch(function (err) {
-					throw `Error while converting image: ${err}`;
-				})
-
-				if(image !== null) {
-					encoded = encoded.replace(m[1], image);
+		console.log('[DEBUG] Starting image route conversion.');
+		const $ = cheerio.load(html, { xmlMode: false, decodeEntities: false });
+		const imgTags = $('img');
+		console.log('[DEBUG] Found', imgTags.length, '<img> tags');
+		for (let i = 0; i < imgTags.length; i++) {
+			let img = imgTags[i];
+			let src = $(img).attr('src');
+			if (src) {
+				if (src.match(/^https?:\/\//)) {
+					// External image, use as is
+					console.log(`[DEBUG] Embedding image: ${src} -> ${src}`);
+					try {
+						let image = await encodeImage(src);
+						if (image) {
+							$(img).attr('src', image);
+							console.log('[DEBUG] Successfully embedded image as base64.');
+						} else {
+							console.log('[DEBUG] Image encoding returned null for', src);
+						}
+					} catch (error) {
+						console.log('[DEBUG] ERROR embedding image:', error);
+					}
+					continue;
 				}
-			}catch(error) {
-				console.log('ERROR:', error);
+				// Local image: strip image_dir prefix if present
+				let imageDirName = this._image_dir.replace(/\\/g, '/').replace(/.*\//, '');
+				let localSrc = src.replace(/^\.\//, '');
+				if (localSrc.startsWith(imageDirName + '/')) {
+					localSrc = localSrc.slice(imageDirName.length + 1);
+				}
+				let url = 'http://localhost:3000/' + localSrc;
+				console.log(`[DEBUG] Embedding image: ${src} -> ${url}`);
+				try {
+					let image = await encodeImage(url);
+					if (image) {
+						$(img).attr('src', image);
+						console.log('[DEBUG] Successfully embedded image as base64.');
+					} else {
+						console.log('[DEBUG] Image encoding returned null for', src);
+					}
+				} catch (error) {
+					console.log('[DEBUG] ERROR embedding image:', error);
+				}
+			} else {
+				console.log('[DEBUG] Skipping image with empty src');
 			}
 		}
-
-		return encoded;
+		return $.html();
 	}
-
 
 	static nullCoalescing = nullCoalescing;
 	static getFileContent = getFileContent;
