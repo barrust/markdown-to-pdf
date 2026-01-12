@@ -59,6 +59,7 @@ function GetMarkdownIt() {
 		slugify: slugify,
 	});
 	md.use(markdownItEmoji.full);
+	// enabled task allows for the HTML to be toggled
 	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true});
 
 	return md;
