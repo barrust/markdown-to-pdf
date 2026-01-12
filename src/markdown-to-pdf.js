@@ -59,7 +59,7 @@ function GetMarkdownIt() {
 		slugify: slugify,
 	});
 	md.use(markdownItEmoji.full);
-	md.use(markdownTaskLists, {enabled: true, label: true, labelAfter: true});
+	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true});
 
 	return md;
 }
