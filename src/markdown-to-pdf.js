@@ -13,6 +13,8 @@ const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItTOC = require('markdown-it-toc-done-right');
 const markdownItEmoji = require('markdown-it-emoji');
+const markdownTaskLists = require('markdown-it-task-lists');
+
 
 function nullCoalescing(value, fallback) {
 	return value !== undefined && value !== null ? value : fallback;
@@ -57,6 +59,8 @@ function GetMarkdownIt() {
 		slugify: slugify,
 	});
 	md.use(markdownItEmoji.full);
+	// enabled task allows for the HTML to be toggled
+	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true});
 
 	return md;
 }
