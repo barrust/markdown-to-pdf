@@ -15,7 +15,7 @@ This is a fork of [BaileyJM02/markdown-to-pdf](https://github.com/BaileyJM02/mar
 - Tables
 - Images (see docs)
 - Internal and external links
-- Emoji :rocket: :100:
+- Emojis (rendered by [twemoji](https://github.com/twitter/twemoji)) :rocket: :100:
 - Task Lists
   - [x] Completed
   - [ ] Not completed

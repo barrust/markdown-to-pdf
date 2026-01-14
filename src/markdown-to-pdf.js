@@ -15,6 +15,7 @@ const markdownItTOC = require('markdown-it-toc-done-right');
 const markdownItEmoji = require('markdown-it-emoji');
 const markdownTaskLists = require('markdown-it-task-lists');
 const markdownItFootnote = require('markdown-it-footnote');
+const twemoji = require('twemoji');
 
 
 function nullCoalescing(value, fallback) {
@@ -59,7 +60,13 @@ function GetMarkdownIt() {
 		listType: 'ul',
 		slugify: slugify,
 	});
+
+	// Enable emoji support with twemoji rendering
 	md.use(markdownItEmoji.full);
+	md.renderer.rules.emoji = function(token, idx) {
+		return twemoji.parse(token[idx].content);
+	};
+
 	// enabled task allows for the HTML to be toggled
 	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true});
 	md.use(markdownItFootnote);
