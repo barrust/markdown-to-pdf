@@ -837,7 +837,7 @@ pre > code {
 
 .hljs pre {
   margin-bottom: 0;
-  word-break: normal;
+  word-break: break-word;
 }
 
 .hljs pre,
