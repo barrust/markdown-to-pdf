@@ -12,7 +12,17 @@ This is a fork of [BaileyJM02/markdown-to-pdf](https://github.com/BaileyJM02/mar
 ## Notable Features:
 
 - Code highlighting
+  ```python
+  def return_one(self):
+    return 1
+  ```
 - Tables
+  | Month | Savings |
+  | -------- | ------- |
+  | January | $250 |
+  | February | $80 |
+  | March | $420 |
+
 - Images (see docs)
 - Internal and external links
 - Emojis (rendered by [twemoji](https://github.com/twitter/twemoji)) :rocket: :100:
