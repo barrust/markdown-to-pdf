@@ -171,7 +171,8 @@ on:
   push:
     branches:
       - main
-    # Paths can be used to only trigger actions when you have edited certain files, such as a file within the /docs directory
+    # Paths can be used to only trigger actions when you have
+    # edited certain files, such as a file within the /docs directory
     paths:
       - 'docs/**.md'
       - 'docs/images/**'
