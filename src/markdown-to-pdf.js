@@ -178,6 +178,10 @@ class MarkdownToPDF {
 			throw `Error while rendering page: ${err}`;
 		})
 
+		await page.emulateMediaType('print').catch(function (err) {
+			throw `Error while setting media type: ${err}`;
+		})
+
 		let pdf = await page.pdf(PDFLayout).then(function (pdf) {
 			return pdf;
 		}).catch(function (err) {
