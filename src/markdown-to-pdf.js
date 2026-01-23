@@ -18,6 +18,8 @@ const markdownItSup = require('markdown-it-sup');
 const markdownTaskLists = require('markdown-it-task-lists');
 const markdownItFootnote = require('markdown-it-footnote');
 const markdownItAbbr = require('markdown-it-abbr');
+const markdownItMark = require('markdown-it-mark');
+const markdownItUnderline = require('markdown-it-underline');
 const twemoji = require('twemoji');
 
 
@@ -79,6 +81,8 @@ function GetMarkdownIt() {
 	md.use(markdownItFootnote);
 
 	md.use(markdownItAbbr);  // not great in PDF, but still useful in HTML
+	md.use(markdownItMark);
+	md.use(markdownItUnderline);
 
 	return md;
 }
