@@ -13,6 +13,8 @@ const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItTOC = require('markdown-it-toc-done-right');
 const markdownItEmoji = require('markdown-it-emoji');
+const markdownItSub = require('markdown-it-sub');
+const markdownItSup = require('markdown-it-sup');
 const markdownTaskLists = require('markdown-it-task-lists');
 const markdownItFootnote = require('markdown-it-footnote');
 const twemoji = require('twemoji');
@@ -35,11 +37,11 @@ function GetMarkdownIt() {
 		style: 'github',
 		// Handle code snippet highlighting, we can catch this error as it will
 		// be correctly handled by markdown-it
-		highlight: function(str, lang) {
-			if(lang && hljs.getLanguage(lang)) {
+		highlight: function (str, lang) {
+			if (lang && hljs.getLanguage(lang)) {
 				try {
-					return hljs.highlight(str, {language: lang}).value;
-				}catch(__) {
+					return hljs.highlight(str, { language: lang }).value;
+				} catch (__) {
 				}
 			}
 
@@ -63,12 +65,16 @@ function GetMarkdownIt() {
 
 	// Enable emoji support with twemoji rendering
 	md.use(markdownItEmoji.full);
-	md.renderer.rules.emoji = function(token, idx) {
+	md.renderer.rules.emoji = function (token, idx) {
 		return twemoji.parse(token[idx].content);
 	};
 
+	// Subscript and Superscript
+	md.use(markdownItSub);
+	md.use(markdownItSup);
+
 	// enabled task allows for the HTML to be toggled
-	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true});
+	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true });
 	md.use(markdownItFootnote);
 
 	return md;
@@ -76,19 +82,19 @@ function GetMarkdownIt() {
 
 // encodeImage is a helper function to fetch a URL and return the image as a base64 string
 async function encodeImage(url) {
-       try {
-	       const response = await axios.get(url, { responseType: 'arraybuffer' });
-	       if (response.status !== 200) {
-		       console.log('Image not found, is the image folder route correct? [' + url + ']');
-		       return null;
-	       }
-	       const contentType = response.headers['content-type'];
-	       const base64 = Buffer.from(response.data, 'binary').toString('base64');
-	       return `data:${contentType.replace(' ', '')};base64,${base64}`;
-       } catch (error) {
-	       console.log(error);
-	       return null;
-       }
+	try {
+		const response = await axios.get(url, { responseType: 'arraybuffer' });
+		if (response.status !== 200) {
+			console.log('Image not found, is the image folder route correct? [' + url + ']');
+			return null;
+		}
+		const contentType = response.headers['content-type'];
+		const base64 = Buffer.from(response.data, 'binary').toString('base64');
+		return `data:${contentType.replace(' ', '')};base64,${base64}`;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
 }
 
 const used_headers = {};
@@ -102,9 +108,9 @@ function slugify(string) {
 		.replace(/^-+/, '')
 		.replace(/-+$/, ''));
 
-	if(used_headers[slug]) {
+	if (used_headers[slug]) {
 		slug += '-' + ++used_headers[slug];
-	}else {
+	} else {
 		used_headers[slug] = 0;
 	}
 
@@ -116,7 +122,7 @@ const PDFLayout = {
 	format: 'A4',
 	scale: .9,
 	displayHeaderFooter: false,
-	margin: {top: 50, bottom: 50, right: 50, left: 50}
+	margin: { top: 50, bottom: 50, right: 50, left: 50 }
 };
 
 
@@ -137,8 +143,8 @@ class MarkdownToPDF {
 	}
 
 	async convert(data, title) {
-		if(typeof data !== 'string') throw "Parameter 'data' has to be a string containing Markdown content";
-		if(typeof title !== 'string' && title !== undefined) throw "Parameter 'title' has to be a string";
+		if (typeof data !== 'string') throw "Parameter 'data' has to be a string containing Markdown content";
+		if (typeof title !== 'string' && title !== undefined) throw "Parameter 'title' has to be a string";
 
 		// Convert MD to HTML
 		let preHTML = this._convertToHtml(data, nullCoalescing(title, ''));
@@ -171,7 +177,7 @@ class MarkdownToPDF {
 			throw `Error while creating new page: ${err}`;
 		})
 
-		await page.goto('data:text/html;,<h1>Not Rendered</h1>', {waitUntil: 'domcontentloaded', timeout: 2000}).catch(function (err) {
+		await page.goto('data:text/html;,<h1>Not Rendered</h1>', { waitUntil: 'domcontentloaded', timeout: 2000 }).catch(function (err) {
 			throw `Error while rendering page: ${err}`;
 		})
 		await page.setContent(html).catch(function (err) {
@@ -197,14 +203,14 @@ class MarkdownToPDF {
 
 	close() {
 		// Shutdown the image server
-		this._image_server.close(function() {
+		this._image_server.close(function () {
 			console.log('\nGracefully shut down image server.');
 		});
 	}
 
 	// This converts the markdown string to it's HTML values # => h1 etc.
 	_convertToHtml(text, title) {
-		if(this._table_of_contents) text = '[toc]\n' + text;
+		if (this._table_of_contents) text = '[toc]\n' + text;
 
 		let md = GetMarkdownIt();
 		let body = md.render(text);
