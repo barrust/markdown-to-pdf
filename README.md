@@ -22,6 +22,11 @@ This is a fork of [BaileyJM02/markdown-to-pdf](https://github.com/BaileyJM02/mar
 - Superscripts: 29^th^
 - Subscripts: H~2~0
 - Footnotes [^1]
+- Abbreviations
+  *[HTML]: Hyper Text Markup Language
+  *[W3C]:  World Wide Web Consortium
+  -  The HTML specification is maintained by the W3C.
+
 
 ## GitHub Action Inputs
 

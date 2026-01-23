@@ -17,6 +17,7 @@ const markdownItSub = require('markdown-it-sub');
 const markdownItSup = require('markdown-it-sup');
 const markdownTaskLists = require('markdown-it-task-lists');
 const markdownItFootnote = require('markdown-it-footnote');
+const markdownItAbbr = require('markdown-it-abbr');
 const twemoji = require('twemoji');
 
 
@@ -76,6 +77,8 @@ function GetMarkdownIt() {
 	// enabled task allows for the HTML to be toggled
 	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true });
 	md.use(markdownItFootnote);
+
+	md.use(markdownItAbbr);  // not great in PDF, but still useful in HTML
 
 	return md;
 }
