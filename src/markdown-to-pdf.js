@@ -13,6 +13,8 @@ const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
 const markdownItTOC = require('markdown-it-toc-done-right');
 const markdownItEmoji = require('markdown-it-emoji');
+const markdownItSub = require('markdown-it-sub');
+const markdownItSup = require('markdown-it-sup');
 const markdownTaskLists = require('markdown-it-task-lists');
 const markdownItFootnote = require('markdown-it-footnote');
 const markdownItAbbr = require('markdown-it-abbr');
@@ -67,6 +69,10 @@ function GetMarkdownIt() {
 	md.renderer.rules.emoji = function (token, idx) {
 		return twemoji.parse(token[idx].content);
 	};
+
+	// Subscript and Superscript
+	md.use(markdownItSub);
+	md.use(markdownItSup);
 
 	// enabled task allows for the HTML to be toggled
 	md.use(markdownTaskLists, {/*enabled: true,*/ label: true, labelAfter: true });

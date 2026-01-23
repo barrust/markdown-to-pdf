@@ -19,6 +19,8 @@ This is a fork of [BaileyJM02/markdown-to-pdf](https://github.com/BaileyJM02/mar
 - Task Lists
   - [x] Completed
   - [ ] Not completed
+- Superscripts: 29^th^
+- Subscripts: H~2~0
 - Footnotes [^1]
 - Abbreviations
   *[HTML]: Hyper Text Markup Language
