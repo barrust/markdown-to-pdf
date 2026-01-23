@@ -19,6 +19,11 @@ This is a fork of [BaileyJM02/markdown-to-pdf](https://github.com/BaileyJM02/mar
 - Task Lists
   - [x] Completed
   - [ ] Not completed
+- ~~Strikethrough~~
+- *Italics*
+- **Bold**
+- ***Bold and italics***
+- > Quote text
 - Superscripts: 29^th^
 - Subscripts: H~2~0
 - Footnotes [^1]
