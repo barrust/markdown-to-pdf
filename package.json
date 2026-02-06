@@ -27,7 +27,7 @@
 		"markdown-it-mark": "4.0.0",
 		"markdown-it-underline": "1.0.1",
 		"mustache": "4.2.0",
-		"puppeteer": "24.35.0",
+		"puppeteer": "24.37.2",
 		"twemoji": "^14.0.2"
 	}
 }
