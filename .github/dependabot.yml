@@ -9,8 +9,6 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    update-types:
-      - "version-update:semver-major"
     groups:
       actions-updates:
         patterns:
@@ -19,8 +17,8 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    update-types:
-      - "version-update:semver-major"
+    update-types: ["version-update:semver-patch"]
+
     groups:
       npm-updates:
         patterns:
