@@ -17,11 +17,13 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    update-types:
-      - "version-update:semver-major"
-      - "version-update:semver-minor"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
     groups:
       npm-updates:
         patterns:
+          - "*"
+        update-types:
           - "minor"
           - "patch"
