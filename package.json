@@ -11,11 +11,11 @@
 		"test": "test/test.js"
 	},
 	"dependencies": {
-		"axios": "^1.13.5",
+		"axios": "^1.17.0",
 		"cheerio": "1.2.0",
 		"express": "5.2.1",
 		"highlight.js": "^11.11.1",
-		"markdown-it": "14.1.1",
+		"markdown-it": "14.2.0",
 		"markdown-it-anchor": "^9.2.0",
 		"markdown-it-emoji": "^3.0.0",
 		"markdown-it-sub": "2.0.0",
@@ -27,7 +27,7 @@
 		"markdown-it-mark": "4.0.0",
 		"markdown-it-underline": "1.0.1",
 		"mustache": "4.2.0",
-		"puppeteer": "24.37.2",
+		"puppeteer": "25.1.0",
 		"twemoji": "^14.0.2"
 	}
 }
